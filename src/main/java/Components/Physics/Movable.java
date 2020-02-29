@@ -1,4 +1,4 @@
-package Physics;
+package Components.Physics;
 
 public interface Movable {
     void xMove(int v);

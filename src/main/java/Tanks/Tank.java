@@ -1,7 +1,7 @@
 package Tanks;
 
-import Physics.Movable;
-import Physics.Rigidbody;
+import Components.Physics.Movable;
+import Components.Physics.Rigidbody;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,6 +13,7 @@ public abstract class Tank extends Rigidbody implements Movable {
     public int getV(){return v;}
     public void setV(int v){this.v=v;}
     public void setDirection(int direction){this.direction = direction;}
+    public int getDirection(){return direction;}
 
     public final void show(Graphics g){
         int flag=0;

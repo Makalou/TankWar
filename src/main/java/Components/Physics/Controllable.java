@@ -1,9 +1,8 @@
-package Physics;
-
-import java.util.Arrays;
+package Components.Physics;
 
 public interface Controllable extends Movable {
    void setV(int v);
    int getV();
    void setDirection(int direction);
+   int getDirection();
 }

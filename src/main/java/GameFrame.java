@@ -1,5 +1,5 @@
 
-import Physics.Controller;
+import Components.Physics.Controller;
 import Tanks.HeroTank;
 import Tanks.SpriteTank;
 
@@ -10,20 +10,22 @@ import java.util.Queue;
 
 public class GameFrame extends JFrame {
     //constructor
-    private GameFrame(String string, int width, int height) {
+    private GameFrame(String string, int width, int height, HeroTank hero) {
         super(string);
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         this.addKeyListener(Controller.getControllerTo(hero));
-        }
-    private static class MyFrameInstance{
-        private static final GameFrame Instance=new GameFrame(FrameName,GAME_WIDTH,GAME_HEIGHT);
+        Draw.start();
     }
-    public static GameFrame getInstance(String str, int width, int height){
+    private static class MyFrameInstance{
+        private static final GameFrame Instance=new GameFrame(FrameName,GAME_WIDTH,GAME_HEIGHT,Hero);
+    }
+    public static GameFrame getInstance(String str, int width, int height,HeroTank hero){
         FrameName=str;
         GAME_WIDTH=width;
         GAME_HEIGHT=height;
+        Hero=hero;
         return MyFrameInstance.Instance;
     }
     //methods
@@ -35,19 +37,20 @@ public class GameFrame extends JFrame {
         gOffScreen.setColor(Color.black);
         gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         super.paint(gOffScreen);
-        hero.show(gOffScreen);
+        Hero.show(gOffScreen);
         for(SpriteTank enemy:enemys) {
             enemy.show(gOffScreen);
         }
         g.drawImage(offScreenImage, 0, 0, null);
     }
+
     //attributes
     private static String FrameName;
     private static int GAME_WIDTH;
     private static int GAME_HEIGHT;
     private Image offScreenImage = null;
     private Graphics gOffScreen = null;
-    private HeroTank hero=HeroTank.Instance;
+    private static HeroTank Hero;
     public Queue<SpriteTank> enemys=new LinkedList<SpriteTank>();
 
     Thread Draw=new Thread(()->{
@@ -81,6 +84,5 @@ public class GameFrame extends JFrame {
         if(enemys.size()<5)
             enemys.add(new SpriteTank(200,200,1));
     });
-
 }
 

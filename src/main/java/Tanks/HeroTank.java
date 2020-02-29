@@ -1,6 +1,6 @@
 package Tanks;
 
-import Physics.Controllable;
+import Components.Physics.Controllable;
 
 public final class HeroTank extends Tank implements Controllable {
 

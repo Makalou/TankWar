@@ -1,4 +1,4 @@
-package Physics;
+package Components.Physics;
 
 public class CircleCollider extends Collider {
     @Override
