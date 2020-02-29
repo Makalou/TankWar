@@ -1,5 +1,7 @@
 package Components.Physics;
 
+import Tanks.Tank;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -8,19 +10,19 @@ public class Controller extends KeyAdapter {
         con.setV(5);
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-              con.setDirection(0);
+              con.setDirection(Tank.Direction.UP);
                 con.yMove(-Math.abs(con.getV()));
                 break;
             case KeyEvent.VK_S:
-               con.setDirection(136);
+               con.setDirection(Tank.Direction.DOWN);
                 con.yMove(Math.abs(con.getV()));
                 break;
             case KeyEvent.VK_A:
-               con.setDirection(204);
+               con.setDirection(Tank.Direction.LEFT);
                 con.xMove(-Math.abs(con.getV()));
                 break;
             case KeyEvent.VK_D:
-               con.setDirection(68);
+               con.setDirection(Tank.Direction.RIGHT);
                 con.xMove(Math.abs(con.getV()));
                 break;
         }

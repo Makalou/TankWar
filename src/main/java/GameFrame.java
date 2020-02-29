@@ -1,10 +1,13 @@
-
 import Components.Physics.Controller;
+import Maps.HotPoint;
 import Tanks.HeroTank;
 import Tanks.SpriteTank;
+import Threads.Enemy.EnemyBirth;
+import Threads.Enemy.EnemyMove;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -16,7 +19,12 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         this.addKeyListener(Controller.getControllerTo(hero));
+        hotPoints.add(new HotPoint(300,300));
+        hotPoints.add(new HotPoint(200,200));
+        /////////////////////////////////////////////////////////////////////////
         Draw.start();
+        EnemyBirth.start();
+        EnemyMoves.start();
     }
     private static class MyFrameInstance{
         private static final GameFrame Instance=new GameFrame(FrameName,GAME_WIDTH,GAME_HEIGHT,Hero);
@@ -51,7 +59,8 @@ public class GameFrame extends JFrame {
     private Image offScreenImage = null;
     private Graphics gOffScreen = null;
     private static HeroTank Hero;
-    public Queue<SpriteTank> enemys=new LinkedList<SpriteTank>();
+    private volatile Queue<SpriteTank> enemys=new LinkedList<SpriteTank>();
+    private ArrayList<HotPoint> hotPoints=new ArrayList<HotPoint>();
 
     Thread Draw=new Thread(()->{
         while(true){
@@ -63,33 +72,7 @@ public class GameFrame extends JFrame {
             repaint();
         }
     });
-    Thread EnemyMoves =new Thread(()->{
-        while(true){
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            for(SpriteTank enemy:enemys) {
-                enemy.RandomMove();
-            }
-        }
-    });
-    Thread EnemyBirth=new Thread(()-> {
-        while (true) {
-            if (enemys.size() < 5) {
-                enemys.add(new SpriteTank(300,400,1));
-            }
-            else{
-                enemys.poll();
-            }
-            System.out.println(enemys.size());
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    });
+    Thread EnemyMoves =new EnemyMove(enemys);
+    Thread EnemyBirth=new EnemyBirth(enemys,hotPoints);
 }
 
