@@ -2,7 +2,7 @@ package Tanks;
 
 import java.util.Random;
 
-public final class SpriteTank extends Tank {
+public final class SpriteTank extends Tank implements Cloneable{
     public SpriteTank(int x,int y,int s){
         super(x,y,s);
     }

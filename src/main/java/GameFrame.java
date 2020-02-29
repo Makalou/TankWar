@@ -75,14 +75,21 @@ public class GameFrame extends JFrame {
             }
         }
     });
-    Thread EnemyBirth=new Thread(()->{
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    Thread EnemyBirth=new Thread(()-> {
+        while (true) {
+            if (enemys.size() < 5) {
+                enemys.add(new SpriteTank(300,400,1));
+            }
+            else{
+                enemys.poll();
+            }
+            System.out.println(enemys.size());
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        if(enemys.size()<5)
-            enemys.add(new SpriteTank(200,200,1));
     });
 }
 

@@ -1,4 +1,4 @@
 package Roles;
 
-public class Enemy {
+public class Enemy implements Cloneable {
 }
