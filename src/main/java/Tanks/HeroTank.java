@@ -1,8 +1,9 @@
 package Tanks;
 
 import Components.Physics.Controllable;
+import Roles.Hero;
 
-public final class HeroTank extends Tank implements Controllable {
+public final class HeroTank extends Tank implements Controllable , Hero {
 
     private HeroTank(int x, int y, int s){
         super(x,y,s);

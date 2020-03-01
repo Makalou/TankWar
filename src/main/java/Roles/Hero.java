@@ -1,4 +1,4 @@
 package Roles;
 
-public class Hero {
+public interface Hero {
 }

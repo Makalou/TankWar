@@ -1,11 +1,11 @@
 package Tanks;
 
 import Maps.HotPoint;
-
+import Roles.Enemy;
 import java.security.SecureRandom;
-import java.util.Random;
 
-public final class SpriteTank extends Tank implements Cloneable{
+
+public final class SpriteTank extends Tank implements Enemy {
     public SpriteTank(int x,int y,int s){
         super(x,y,s);
         v=3;

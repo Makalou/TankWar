@@ -1,3 +1,4 @@
+import Frame.GameFrame;
 import Tanks.HeroTank;
 
 public class Main {

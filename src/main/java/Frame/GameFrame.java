@@ -1,3 +1,5 @@
+package Frame;
+
 import Components.Physics.Controller;
 import Maps.HotPoint;
 import Tanks.HeroTank;
