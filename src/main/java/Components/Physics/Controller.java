@@ -26,6 +26,10 @@ public class Controller extends KeyAdapter {
                 con.xMove(Math.abs(con.getV()));
                 break;
         }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         con.setV(0);
     }
 

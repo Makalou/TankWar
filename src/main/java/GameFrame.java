@@ -2,8 +2,8 @@ import Components.Physics.Controller;
 import Maps.HotPoint;
 import Tanks.HeroTank;
 import Tanks.SpriteTank;
-import Threads.Enemy.EnemyBirth;
-import Threads.Enemy.EnemyMove;
+import Actions.EnemyBirth;
+import Actions.EnemyMove;
 
 import javax.swing.*;
 import java.awt.*;

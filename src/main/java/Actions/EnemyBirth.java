@@ -1,4 +1,4 @@
-package Threads.Enemy;
+package Actions;
 
 import Maps.HotPoint;
 import Tanks.SpriteTank;

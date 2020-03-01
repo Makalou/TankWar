@@ -1,4 +1,4 @@
-package Threads.Enemy;
+package Actions;
 
 import Tanks.SpriteTank;
 
