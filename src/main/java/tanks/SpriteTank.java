@@ -26,5 +26,11 @@ public final class SpriteTank extends Tank implements Enemy {
         }
     }
 
+    @Override
+    public Enemy getInstance(HotPoint hotPoint, int s) {
+        return new SpriteTank(hotPoint,s);
+    }
+
+
     private SecureRandom random=new SecureRandom();
 }

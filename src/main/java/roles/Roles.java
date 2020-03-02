@@ -1,23 +1,24 @@
 package roles;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
-public class Roles {
+public final class Roles {
 
-    public Roles(Hero hero,Queue<Enemy> enemys){
+    public Roles(Hero hero,Enemy enemy){
         this.hero=hero;
-        this.enemys=enemys;
+        if(enemy!=null){
+            enemys.add(enemy);
+        }
     }
     //methods
     public Hero getHero() {
         return hero;
     }
-
     public Queue<Enemy> getEnemys() {
         return enemys;
     }
-
     private Hero hero;
-    private volatile Queue<Enemy> enemys;
+    private volatile Queue<Enemy> enemys=new LinkedList<>();
 
 }

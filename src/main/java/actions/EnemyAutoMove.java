@@ -1,12 +1,11 @@
 package actions;
 
 import roles.Enemy;
-import tanks.SpriteTank;
 
 import java.util.Queue;
 
-public class EnemyMove extends Thread {
-    public EnemyMove(Queue<Enemy> enemys){
+public class EnemyAutoMove extends Thread {
+    public EnemyAutoMove(Queue<Enemy> enemys){
         super(()->{
             try {
                 Thread.sleep(100);

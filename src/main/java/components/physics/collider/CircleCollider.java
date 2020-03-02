@@ -15,9 +15,6 @@ public class CircleCollider extends Collider {
         if(other instanceof CircleCollider) {
             return  (Math.pow((xp - other.getX()), 2) + Math.pow((yp - other.getY()), 2) )<= r * r;
         }
-        if(other instanceof RectangleCollider){
-
-        }
             return false;
     }
     private double r;
