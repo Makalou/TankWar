@@ -1,5 +1,6 @@
 import frame.GameFrame;
 import maps.HotPoint;
+import maps.Map;
 import roles.Enemy;
 import roles.Roles;
 import tanks.HeroTank;
@@ -17,7 +18,7 @@ public class Main {
         ArrayList<HotPoint> hotPoints=new ArrayList<>();
         hotPoints.add(new HotPoint(300,300));
         hotPoints.add(new HotPoint(400,400));
-        frame.setMaps(hotPoints,null);
+        frame.setMaps(hotPoints,new Map("map"));
         frame.setEnemyAction(true,true);
         frame.start();
     }

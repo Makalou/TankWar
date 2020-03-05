@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class GameFrame extends JFrame {
     //constructor
-    private GameFrame(String string, int width, int height) {
+    protected GameFrame(String string, int width, int height) {
         super(string);
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +33,7 @@ public class GameFrame extends JFrame {
     //methods
 
     public void start(){
-        if(enemybirth==true){
+        if(enemybirth ==true){
             if(hotPoints==null){
                 System.out.println("You haven't set hotpoints yet!");
                 return;
@@ -52,8 +52,8 @@ public class GameFrame extends JFrame {
         this.roles=roles;
         this.addKeyListener(Controller.getControllerTo(roles.getHero()));
     }
-    public void setMaps(ArrayList<HotPoint> hotPoints,ArrayList<Map> maps){
-        this.maps=maps;
+    public void setMaps(ArrayList<HotPoint> hotPoints,Map map){
+        this.map=map;
         this.hotPoints=hotPoints;
     }
     public void setEnemyAction(boolean enemybirth,boolean enemymove){
@@ -61,7 +61,7 @@ public class GameFrame extends JFrame {
             System.out.println("You haven't set enemies yet!");
             return;
         }
-        this.enemybirth=enemybirth;
+        this.enemybirth =enemybirth;
         this.enemymove=enemymove;
     }
 
@@ -81,6 +81,9 @@ public class GameFrame extends JFrame {
                 roles.getEnemys().forEach(i -> i.show(gOffScreen));
             }
         }
+        if(map!=null){
+            map.getMapUnits().forEach(i->i.show(gOffScreen));
+        }
         g.drawImage(offScreenImage,0,0,null);
     }
     //attributes
@@ -91,10 +94,10 @@ public class GameFrame extends JFrame {
     private Image offScreenImage = null;
     private Graphics gOffScreen = null;
     private  Roles roles;
-    private ArrayList<Map> maps;
+    private Map map;
     private ArrayList<HotPoint>hotPoints;
 
-    private boolean enemybirth=false;
+    private boolean enemybirth =false;
     private boolean enemymove=false;
 
     Thread Draw =new Thread(()->{
