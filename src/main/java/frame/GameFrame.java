@@ -3,12 +3,14 @@ package frame;
 import components.physics.controller.Controller;
 import maps.HotPoint;
 import maps.Map;
+import maps.mapUnits.UnitPosition;
 import roles.Roles;
 import actions.EnemyAutoBirth;
 import actions.EnemyAutoMove;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameFrame extends JFrame {
@@ -82,7 +84,11 @@ public class GameFrame extends JFrame {
             }
         }
         if(map!=null){
-            map.getMapUnits().forEach(i->i.show(gOffScreen));
+            try {
+                map.show(gOffScreen);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         g.drawImage(offScreenImage,0,0,null);
     }

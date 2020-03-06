@@ -2,7 +2,7 @@ package tools;
 
 import maps.mapUnits.MapUnit;
 import maps.mapUnits.MapUnitFactory;
-import org.w3c.dom.ls.LSOutput;
+import maps.mapUnits.UnitPosition;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +15,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class MapBrush extends JFrame {
@@ -26,10 +28,13 @@ public class MapBrush extends JFrame {
         setVisible(true);
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                System.out.println(mapInfo.size());
                 System.out.println(mapUnitList[flag]);
-                mapInfo.push(MapUnitFactory.creatMapUnit(mapUnitList[flag],
-                        e.getX(), e.getY()));
+                try {
+                    mapUnitInstances.add(MapUnitFactory.getMapUnit(mapUnitList[flag]));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                positions.push(new UnitPosition(e.getX(),e.getY(),mapUnitList[flag]));
                 repaint();
             }
         });
@@ -42,7 +47,7 @@ public class MapBrush extends JFrame {
                     case KeyEvent.VK_DOWN:
                         flag=(flag+1)%mapUnitList.length;break;
                     case KeyEvent.VK_C:
-                        mapInfo.pop();
+                        positions.pop();
                         repaint();
                         break;
                     case KeyEvent.VK_ENTER:
@@ -58,17 +63,26 @@ public class MapBrush extends JFrame {
     }
 
     public void paint(Graphics g){
+        if(positions.size()==0) return;
+        if(mapUnitInstances.size()==0) return;
         g.setColor(Color.BLACK);
-        if(mapInfo.size()==0) return;
         super.paint(g);
-       mapInfo.forEach(i->i.show(g));
-    }
+        System.out.println(positions.size());
+        System.out.println(mapUnitInstances.size());
+           for(UnitPosition position:positions) {
+               for(MapUnit mapUnit:mapUnitInstances){
+                   if(position.getWho().equals(mapUnit.getName())) {
+                       mapUnit.show(g,mapUnit.getShell(),position);
+                   }
+               }
+           }
+           }
 
     public void save() throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         try (ObjectOutputStream output = new ObjectOutputStream(buffer)) {
-            mapInfo.forEach(System.out::println);
-            output.writeObject(mapInfo);
+            positions.forEach(System.out::println);
+            output.writeObject(positions);
         }
         try(FileOutputStream output=new FileOutputStream("src/main/resources/mapinfo/map")){
             output.write(buffer.toByteArray());
@@ -76,7 +90,8 @@ public class MapBrush extends JFrame {
         System.out.println("Successfully saved!");
     }
 
-    private Stack<MapUnit>mapInfo=new Stack<>();
+    private Stack<UnitPosition>positions=new Stack<>();
+    private ArrayList<MapUnit>mapUnitInstances=new ArrayList<>();
     private String[] mapUnitList =new String[]{"grass","stone","water"};
     private int flag=0;
 }

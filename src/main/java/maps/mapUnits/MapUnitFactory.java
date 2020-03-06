@@ -1,13 +1,24 @@
 package maps.mapUnits;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 public class MapUnitFactory {
-    public static MapUnit creatMapUnit(String name,int x,int y) {
-        switch (name){
-            case "bricks":return new Bricks(name,x,y);
-            case "grass":return new Grass(name,x,y);
-            case "stone":return new Stone(name,x,y);
-            case "water":return new Water(name,x,y);
+    private static HashMap<String,MapUnit> mapUnitPool=new HashMap<>();
+    public static MapUnit getMapUnit(String name) throws IOException {
+        if(!mapUnitPool.containsKey(name)){
+            switch (name) {
+                case "grass":
+                    mapUnitPool.put(name,new Grass(name));
+                    break;
+                case "stone":
+                    mapUnitPool.put(name,new Stone(name));
+                    break;
+                case "water":
+                    mapUnitPool.put(name,new Water(name));
+                    break;
+            }
         }
-        return null;
+        return (MapUnit)mapUnitPool.get(name);
     }
 }

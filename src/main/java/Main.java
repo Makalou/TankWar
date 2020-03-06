@@ -1,14 +1,13 @@
 import frame.GameFrame;
 import maps.HotPoint;
 import maps.Map;
-import roles.Enemy;
+
 import roles.Roles;
 import tanks.HeroTank;
 import tanks.SpriteTank;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+
 
 public class Main {
     public static void main(String[] args) {
