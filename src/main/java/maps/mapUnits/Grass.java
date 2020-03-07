@@ -7,16 +7,24 @@ import java.io.IOException;
 
 public final class Grass extends MapUnit {
 
-    public Grass(String name) throws IOException {
-        this.name=name;
-        this.shell = ImageIO.read(new File("src/main/resources/map_units/"+name+".png"));
+    public Grass(int x,int y) {
+        this.x=x;
+        this.y=y;
     }
-    private String name;
-    private transient Image shell;
+    private static String name="grass";
+    private transient static Image shell;
 
-    public Image getShell() {
-        return shell;
+    static {
+        try {
+            shell = ImageIO.read(new File("src/main/resources/map_units/"+name+".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public String getName(){return name;}
+    public void show(Graphics g){
+        g.drawImage(shell,x-17,y-17,
+                x+17,y+17,0,0,34,34,null);
+    }
+
 }

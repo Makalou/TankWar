@@ -13,10 +13,10 @@ public class Main {
     public static void main(String[] args) {
         GameFrame frame = GameFrame.getInstance("Tank War",800,600);
         /////////////////////////////////////////////////////////////////////////////
-        frame.setRoles(new Roles(HeroTank.Instance,new SpriteTank(100,100,1)));
         ArrayList<HotPoint> hotPoints=new ArrayList<>();
         hotPoints.add(new HotPoint(300,300));
         hotPoints.add(new HotPoint(400,400));
+        frame.setRoles(new Roles(HeroTank.Instance,new SpriteTank(100,100,1)));
         frame.setMaps(hotPoints,new Map("map"));
         frame.setEnemyAction(true,true);
         frame.start();

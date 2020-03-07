@@ -3,7 +3,6 @@ package frame;
 import components.physics.controller.Controller;
 import maps.HotPoint;
 import maps.Map;
-import maps.mapUnits.UnitPosition;
 import roles.Roles;
 import actions.EnemyAutoBirth;
 import actions.EnemyAutoMove;
