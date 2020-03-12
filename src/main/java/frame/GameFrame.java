@@ -38,6 +38,7 @@ public class GameFrame extends JFrame {
                 return;
             }
             Thread enemyBirth=new Thread(new EnemyAutoBirth(roles.getEnemys(),hotPoints),"enemyBirth");
+            enemyBirth.setDaemon(true);
             enemyBirth.start();
         }
         if(enemyMoveFlag ==true){
