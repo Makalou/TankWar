@@ -1,10 +1,11 @@
 package tanks;
 
 import maps.HotPoint;
+import roles.Actor;
 import roles.Enemy;
 import java.security.SecureRandom;
 
-
+@Actor
 public final class SpriteTank extends Tank implements Enemy {
     public SpriteTank(int x,int y,int s){
         super(x,y,s);
@@ -14,7 +15,8 @@ public final class SpriteTank extends Tank implements Enemy {
         super(hotPoint.getX(),hotPoint.getY(),s);
         v=3;
     }
-    public void RandomMove(){
+
+    public void randomMove(){
         switch (direction){
             case UP:yMove(-v);break;
             case RIGHT:xMove(v);break;
@@ -25,12 +27,9 @@ public final class SpriteTank extends Tank implements Enemy {
             direction=Direction.values()[random.nextInt(4)];
         }
     }
-
     @Override
     public Enemy getInstance(HotPoint hotPoint, int s) {
         return new SpriteTank(hotPoint,s);
     }
-
-
     private SecureRandom random=new SecureRandom();
 }

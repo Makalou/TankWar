@@ -2,18 +2,17 @@ package tanks;
 
 import components.physics.Movable;
 import components.physics.Rigidbody;
+import components.physics.hasDireRigidbody;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class Tank extends Rigidbody implements Movable {
+public abstract class Tank extends hasDireRigidbody implements Movable {
 
     public int getV(){return v;}
     public void setV(int v){this.v=v;}
-    public void setDirection(Direction direction){this.direction = direction;}
-    public Direction getDirection(){return direction;}
 
     public final void show(Graphics g){
         int flag=0;
@@ -41,15 +40,7 @@ public abstract class Tank extends Rigidbody implements Movable {
             e.printStackTrace();
         }
     }
-
     protected static Image img=null;
     protected final int style;
-    protected Direction direction;
-    public enum Direction{
-        UP(0),DOWN(136),LEFT(204),RIGHT(68);
-        int value;
-        private Direction(int value){
-            this.value=value;
-        }
-    }
+
 }

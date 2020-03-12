@@ -6,6 +6,6 @@ import java.awt.*;
 
 public interface Enemy {
     void show(Graphics gOffScreen);
-    void RandomMove();
+    void randomMove();
     Enemy getInstance(HotPoint hotPoint,int s);
 }

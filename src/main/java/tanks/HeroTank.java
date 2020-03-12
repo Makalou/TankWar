@@ -1,8 +1,10 @@
 package tanks;
 
 import components.physics.controller.Controllable;
+import roles.Actor;
 import roles.Hero;
 
+@Actor
 public final class HeroTank extends Tank implements Controllable , Hero {
 
     private HeroTank(int x, int y, int s){

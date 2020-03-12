@@ -30,20 +30,18 @@ public class GameFrame extends JFrame {
         GAME_HEIGHT = height;
         return MyFrameInstance.Instance;
     }
-
     //methods
-
     public void start(){
-        if(enemybirth ==true){
+        if(enemyBirthFlag ==true){
             if(hotPoints==null){
                 System.out.println("You haven't set hotpoints yet!");
                 return;
             }
-            enemyBirth=new EnemyAutoBirth(roles.getEnemys(),hotPoints);
+            Thread enemyBirth=new Thread(new EnemyAutoBirth(roles.getEnemys(),hotPoints),"enemyBirth");
             enemyBirth.start();
         }
-        if(enemymove==true){
-            enemyMove=new EnemyAutoMove(roles.getEnemys());
+        if(enemyMoveFlag ==true){
+            Thread enemyMove=new Thread(new EnemyAutoMove(roles.getEnemys()),"enemyMove");
             enemyMove.start();
         }
         Draw.start();
@@ -62,10 +60,9 @@ public class GameFrame extends JFrame {
             System.out.println("You haven't set enemies yet!");
             return;
         }
-        this.enemybirth =enemybirth;
-        this.enemymove=enemymove;
+        this.enemyBirthFlag =enemybirth;
+        this.enemyMoveFlag =enemymove;
     }
-
     public void paint(Graphics g) {
         if (offScreenImage == null) {
             offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
@@ -98,12 +95,13 @@ public class GameFrame extends JFrame {
 
     private Image offScreenImage = null;
     private Graphics gOffScreen = null;
+
     private  Roles roles;
     private Map map;
     private ArrayList<HotPoint>hotPoints;
 
-    private boolean enemybirth =false;
-    private boolean enemymove=false;
+    private boolean enemyBirthFlag =false;
+    private boolean enemyMoveFlag =false;
 
     Thread Draw =new Thread(()->{
         while(true){
@@ -115,7 +113,5 @@ public class GameFrame extends JFrame {
             repaint();
         }
     });
-    EnemyAutoBirth enemyBirth;
-    EnemyAutoMove enemyMove;
 }
 

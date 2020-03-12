@@ -1,4 +1,4 @@
-package tools;
+package utils;
 
 import maps.mapUnits.MapUnit;
 import maps.mapUnits.MapUnitFactory;
