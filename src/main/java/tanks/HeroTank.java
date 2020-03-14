@@ -5,7 +5,7 @@ import roles.Actor;
 import roles.Hero;
 
 @Actor
-public final class HeroTank extends Tank implements Controllable , Hero {
+public final class HeroTank extends Tank implements Hero {
 
     private HeroTank(int x, int y, int s){
         super(x,y,s);

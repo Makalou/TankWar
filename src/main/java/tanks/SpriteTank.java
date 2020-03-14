@@ -1,6 +1,6 @@
 package tanks;
 
-import maps.HotPoint;
+import maps.HotSpot;
 import roles.Actor;
 import roles.Enemy;
 import java.security.SecureRandom;
@@ -11,7 +11,7 @@ public final class SpriteTank extends Tank implements Enemy {
         super(x,y,s);
         v=3;
     }
-    public SpriteTank(HotPoint hotPoint,int s){
+    public SpriteTank(HotSpot hotPoint, int s){
         super(hotPoint.getX(),hotPoint.getY(),s);
         v=3;
     }
@@ -28,7 +28,7 @@ public final class SpriteTank extends Tank implements Enemy {
         }
     }
     @Override
-    public Enemy getInstance(HotPoint hotPoint, int s) {
+    public Enemy getInstance(HotSpot hotPoint, int s) {
         return new SpriteTank(hotPoint,s);
     }
     private SecureRandom random=new SecureRandom();

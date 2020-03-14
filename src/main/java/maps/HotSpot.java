@@ -1,8 +1,8 @@
 package maps;
 
-public class HotPoint {
+public class HotSpot {
 
-    public HotPoint(int x,int y){
+    public HotSpot(int x, int y){
         this.x=x;
         this.y=y;
     }

@@ -1,7 +1,8 @@
 package frame;
 
+import animation.Draw;
 import components.physics.controller.Controller;
-import maps.HotPoint;
+import maps.HotSpot;
 import maps.Map;
 import roles.Roles;
 import actions.EnemyAutoBirth;
@@ -19,7 +20,6 @@ public class GameFrame extends JFrame {
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        /////////////////////////////////////////////////////////////////////////
     }
     private static class MyFrameInstance {
         private static final GameFrame Instance = new GameFrame(GAME_NAME, GAME_WIDTH, GAME_HEIGHT);
@@ -32,43 +32,48 @@ public class GameFrame extends JFrame {
     }
     //methods
     public void start(){
+        this.addKeyListener(Controller.getControllerTo(roles.getHero()));
         if(enemyBirthFlag ==true){
-            if(hotPoints==null){
+            if(map.getHotPoints()==null){
                 System.out.println("You haven't set hotpoints yet!");
                 return;
             }
-            Thread enemyBirth=new Thread(new EnemyAutoBirth(roles.getEnemys(),hotPoints),"enemyBirth");
+            Thread enemyBirth=new Thread(new EnemyAutoBirth(roles.getEnemys(),map.getHotPoints()),"enemyBirth");
             enemyBirth.setDaemon(true);
             enemyBirth.start();
         }
         if(enemyMoveFlag ==true){
             Thread enemyMove=new Thread(new EnemyAutoMove(roles.getEnemys()),"enemyMove");
+            enemyMove.setDaemon(true);
             enemyMove.start();
         }
-        Draw.start();
+        Thread draw=new Thread(new Draw(this));
+        draw.setDaemon(true);
+        draw.start();
     }
-    public void setRoles(Roles roles){
-        if (roles==null) return;
+    public GameFrame setRoles(Roles roles){
+        if (roles==null) return this;
         this.roles=roles;
-        this.addKeyListener(Controller.getControllerTo(roles.getHero()));
+        return this;
     }
-    public void setMaps(ArrayList<HotPoint> hotPoints,Map map){
+    public GameFrame setMaps(Map map){
         this.map=map;
-        this.hotPoints=hotPoints;
+        return  this;
     }
-    public void setEnemyAction(boolean enemybirth,boolean enemymove){
+    public GameFrame setEnemyAction(boolean enemybirth,boolean enemymove){
         if(roles.getEnemys()==null){
             System.out.println("You haven't set enemies yet!");
-            return;
+            return this;
         }
         this.enemyBirthFlag =enemybirth;
         this.enemyMoveFlag =enemymove;
+        return this;
     }
     public void paint(Graphics g) {
         if (offScreenImage == null) {
             offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
-            gOffScreen = offScreenImage.getGraphics();
         }
+        gOffScreen = offScreenImage.getGraphics();
         gOffScreen.setColor(Color.black);
         gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         super.paint(gOffScreen);
@@ -97,22 +102,10 @@ public class GameFrame extends JFrame {
     private Image offScreenImage = null;
     private Graphics gOffScreen = null;
 
-    private  Roles roles;
+    private Roles roles;
     private Map map;
-    private ArrayList<HotPoint>hotPoints;
 
     private boolean enemyBirthFlag =false;
     private boolean enemyMoveFlag =false;
-
-    Thread Draw =new Thread(()->{
-        while(true){
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            repaint();
-        }
-    });
 }
 

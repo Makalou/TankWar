@@ -1,5 +1,5 @@
 import frame.GameFrame;
-import maps.HotPoint;
+import maps.HotSpot;
 import maps.Map;
 
 import roles.Roles;
@@ -8,20 +8,18 @@ import tanks.SpriteTank;
 
 import java.util.ArrayList;
 
-
 public class Main {
     public static void main(String[] args) {
-        GameFrame frame = GameFrame.getInstance("Tank War",800,600);
+        ArrayList<HotSpot> hotSpots=new ArrayList<>();
+        hotSpots.add(new HotSpot(300,300));
+        hotSpots.add(new HotSpot(400,400));
         /////////////////////////////////////////////////////////////////////////////
-        ArrayList<HotPoint> hotPoints=new ArrayList<>();
-        hotPoints.add(new HotPoint(300,300));
-        hotPoints.add(new HotPoint(400,400));
-        frame.setRoles(new Roles(HeroTank.Instance,new SpriteTank(100,100,1)));
-        frame.setMaps(hotPoints,new Map("map"));
-        frame.setEnemyAction(true,true);
+        GameFrame frame = GameFrame.getInstance("Tank War",800,600)
+                .setRoles(new Roles(HeroTank.Instance,new SpriteTank(100,100,1)))
+                .setMaps(new Map("map",hotSpots))
+                .setEnemyAction(true,true);
         frame.start();
     }
-
 }
 
 

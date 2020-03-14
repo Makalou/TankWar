@@ -1,11 +1,11 @@
 package roles;
 
-import maps.HotPoint;
+import maps.HotSpot;
 
 import java.awt.*;
 
 public interface Enemy {
     void show(Graphics gOffScreen);
     void randomMove();
-    Enemy getInstance(HotPoint hotPoint,int s);
+    Enemy getInstance(HotSpot hotPoint, int s);
 }
