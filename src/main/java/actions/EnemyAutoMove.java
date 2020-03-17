@@ -2,6 +2,7 @@ package actions;
 
 import roles.Enemy;
 
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Queue;
 
@@ -13,13 +14,19 @@ public class EnemyAutoMove implements Runnable {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         while(true){
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            for(Enemy enemy:enemys.get()) {
+            for(Iterator<Enemy> it=enemys.get().iterator();it.hasNext();) {
+                Enemy enemy=it.next();
                 enemy.randomMove();
             }
         }

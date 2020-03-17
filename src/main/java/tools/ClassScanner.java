@@ -1,9 +1,8 @@
-package utils;
+package tools;
 
 import roles.Actor;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.*;
@@ -18,7 +17,7 @@ public class ClassScanner {
         Optional<URL> url=Optional.of(classLoader.getResource(""));
            getAllClassesName(url.get().getPath());
            scanNeed(classFullNames);
-           classFullNames.forEach(System.out::println);
+         //  classFullNames.forEach(System.out::println);
     }
 
     public void getAllClassesName(String filePath){
@@ -43,7 +42,7 @@ public class ClassScanner {
             Optional<Class>cls=Optional.of(Class.forName(className));
             if(cls.get().getAnnotation(Actor.class)!=null){
                 classes.add(cls.get());
-                System.out.println(cls);
+                System.out.println("Actor: "+cls);
             }
         }
     }

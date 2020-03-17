@@ -1,12 +1,16 @@
 package frame;
 
+import actions.EnemyFire;
 import animation.Draw;
-import components.physics.controller.Controller;
-import maps.HotSpot;
+import components.weapons.Bullet;
+import org.omg.PortableServer.THREAD_POLICY_ID;
+import utils.controller.Controller;
 import maps.Map;
 import roles.Roles;
 import actions.EnemyAutoBirth;
 import actions.EnemyAutoMove;
+import utils.controller.Firable;
+import utils.controller.FireController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +24,7 @@ public class GameFrame extends JFrame {
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        setResizable(false);
     }
     private static class MyFrameInstance {
         private static final GameFrame Instance = new GameFrame(GAME_NAME, GAME_WIDTH, GAME_HEIGHT);
@@ -33,6 +38,11 @@ public class GameFrame extends JFrame {
     //methods
     public void start(){
         this.addKeyListener(Controller.getControllerTo(roles.getHero()));
+        if(roles.getHero() instanceof Firable){
+            FireController fireController=new FireController((Firable) roles.getHero());
+            bullets=fireController.getBullets();
+            this.addKeyListener(fireController);
+        }
         if(enemyBirthFlag ==true){
             if(map.getHotPoints()==null){
                 System.out.println("You haven't set hotpoints yet!");
@@ -42,11 +52,14 @@ public class GameFrame extends JFrame {
             enemyBirth.setDaemon(true);
             enemyBirth.start();
         }
-        if(enemyMoveFlag ==true){
+        if(enemyMoveFlag==true){
             Thread enemyMove=new Thread(new EnemyAutoMove(roles.getEnemys()),"enemyMove");
             enemyMove.setDaemon(true);
             enemyMove.start();
         }
+        Thread enemyFire=new Thread(new EnemyFire(roles.getEnemys(),roles.getHero(),bullets),"EnemyFire");
+        enemyFire.setDaemon(true);
+        enemyFire.start();
         Thread draw=new Thread(new Draw(this));
         draw.setDaemon(true);
         draw.start();
@@ -92,6 +105,11 @@ public class GameFrame extends JFrame {
                 e.printStackTrace();
             }
         }
+        if(bullets!=null){
+            for(Bullet bullet:bullets){
+                bullet.show(gOffScreen);
+            }
+        }
         g.drawImage(offScreenImage,0,0,null);
     }
     //attributes
@@ -104,8 +122,12 @@ public class GameFrame extends JFrame {
 
     private Roles roles;
     private Map map;
+    private ArrayList<Bullet> bullets=new ArrayList<>();
+
 
     private boolean enemyBirthFlag =false;
     private boolean enemyMoveFlag =false;
+    private final boolean singleplayer=true;
+    private final boolean multiplayer=true;
 }
 

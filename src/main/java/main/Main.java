@@ -1,3 +1,5 @@
+package main;
+
 import frame.GameFrame;
 import maps.HotSpot;
 import maps.Map;
@@ -15,7 +17,7 @@ public class Main {
         hotSpots.add(new HotSpot(400,400));
         /////////////////////////////////////////////////////////////////////////////
         GameFrame frame = GameFrame.getInstance("Tank War",800,600)
-                .setRoles(new Roles(HeroTank.Instance,new SpriteTank(100,100,1)))
+                .setRoles(new Roles(HeroTank.Instance,new SpriteTank(300,300,1)))
                 .setMaps(new Map("map",hotSpots))
                 .setEnemyAction(true,true);
         frame.start();

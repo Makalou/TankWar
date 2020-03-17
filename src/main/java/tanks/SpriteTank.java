@@ -3,6 +3,8 @@ package tanks;
 import maps.HotSpot;
 import roles.Actor;
 import roles.Enemy;
+import utils.Direction;
+
 import java.security.SecureRandom;
 
 @Actor
@@ -24,7 +26,7 @@ public final class SpriteTank extends Tank implements Enemy {
             case LEFT:xMove(-v);break;
         }
         if(random.nextInt(20)==0){
-            direction=Direction.values()[random.nextInt(4)];
+            direction= Direction.values()[random.nextInt(4)];
         }
     }
     @Override
