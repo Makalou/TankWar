@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 
 public class Controller extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
-        con.setV(5);
+        con.setV(3);
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
               con.setDirection(Direction.UP);

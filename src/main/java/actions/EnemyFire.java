@@ -2,19 +2,19 @@ package actions;
 
 import components.weapons.Bullet;
 import roles.Enemy;
-import tanks.Tank;
 import utils.Direction;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Makalou
  * @date 3/17/2020-11:09 PM
  */
 public class EnemyFire implements Runnable {
-    public EnemyFire(Queue<Enemy> enemys, FireTarget target, ArrayList<Bullet> bullets){
+    public EnemyFire(ArrayList<Enemy> enemys, FireTarget target, ArrayList<Bullet> bullets){
         this.enemys=enemys;
         this.target=target;
         this.bullets=bullets;
@@ -36,18 +36,18 @@ public class EnemyFire implements Runnable {
                                 ((enemy.getY()<target.getY()&&enemy.getDirection()== Direction.DOWN)||
                                         (enemy.getY()>target.getY()&&enemy.getDirection()== Direction.UP)))) {
                  {
-                     bullets.add(enemy.fire(6));
+                     bullets.add(enemy.fire(10));
                 }
                 }
                 }
             try {
-                Thread.sleep(1000);
+                TimeUnit.MILLISECONDS.sleep(700);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             }
         }
-    private Queue<Enemy> enemys;
+    private ArrayList<Enemy> enemys;
     private FireTarget target;
     ArrayList<Bullet> bullets;
 }

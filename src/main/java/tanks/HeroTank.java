@@ -1,9 +1,13 @@
 package tanks;
 
 import actions.FireTarget;
+import components.physics.collider.Collider;
+import components.physics.collider.ColliderHolder;
+import components.weapons.Bullet;
 import roles.Actor;
 import roles.Hero;
 import utils.Direction;
+import utils.State;
 
 @Actor
 public final class HeroTank extends Tank implements Hero {
@@ -22,5 +26,17 @@ public final class HeroTank extends Tank implements Hero {
     @Override
     public Direction getDirection() {
         return direction;
+    }
+
+    @Override
+    public void trigger(ColliderHolder other) {
+        if(other instanceof Bullet||other instanceof SpriteTank){
+            state= State.RUINED;
+        }
+    }
+
+    @Override
+    public void trigger(Collider other) {
+
     }
 }

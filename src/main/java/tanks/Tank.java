@@ -2,8 +2,12 @@ package tanks;
 
 import components.physics.Movable;
 import components.physics.Rigidbody;
+import components.physics.collider.BoxCollider;
+import components.physics.collider.Collider;
+import components.physics.collider.ColliderHolder;
 import components.weapons.Bullet;
 import utils.Direction;
+import utils.State;
 import utils.Vector;
 import utils.controller.Firable;
 
@@ -12,7 +16,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class Tank extends Rigidbody implements Movable, Firable {
+public abstract class Tank extends Rigidbody implements Movable, Firable, ColliderHolder {
 
     //methods
     public int getX(){return xp;}
@@ -20,6 +24,11 @@ public abstract class Tank extends Rigidbody implements Movable, Firable {
     public Direction getDirection(){return direction;}
     public int getV(){return v;}
     public void setV(int v){this.v=v;}
+
+    public State getState() {
+        return state;
+    }
+
     public final void show(Graphics g){
         int flag=0;
         flag=(flag+1)%2;
@@ -34,12 +43,15 @@ public abstract class Tank extends Rigidbody implements Movable, Firable {
     public void yMove(int v){ yp +=v; }
     public Bullet fire(int v){
         switch (direction){
-            case UP:return new Bullet(xp-4,yp-16,new Vector(v,Direction.UP));
-            case DOWN:return new Bullet(xp-4,yp+16,new Vector(v,Direction.DOWN));
-            case LEFT:return new Bullet(xp-16,yp-4,new Vector(v,Direction.LEFT));
-            case RIGHT:return new Bullet(xp+16,yp-4,new Vector(v,Direction.RIGHT));
+            case UP:return new Bullet(this,xp,yp-25,new Vector(v,Direction.UP));
+            case DOWN:return new Bullet(this,xp,yp+25,new Vector(v,Direction.DOWN));
+            case LEFT:return new Bullet(this,xp-25,yp,new Vector(v,Direction.LEFT));
+            case RIGHT:return new Bullet(this,xp+25,yp,new Vector(v,Direction.RIGHT));
         }
         return null;
+    }
+    public Collider getCollider(){
+        return collider;
     }
     //constructor
     protected Tank(int x,int y,int s){
@@ -58,4 +70,6 @@ public abstract class Tank extends Rigidbody implements Movable, Firable {
     protected static Image img=null;
     protected final int style;
     protected Direction direction;
+    protected State state;
+    protected BoxCollider collider=new BoxCollider(this,34,34);
 }

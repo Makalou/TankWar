@@ -1,20 +1,27 @@
 package components.physics.collider;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class CircleCollider extends Collider {
-    public CircleCollider(hasCollider obj,int r){
+    public CircleCollider(ColliderHolder obj,int r){
         if(obj==null){
             return;
         }
         this.r=r;
-        this.obj=obj;
+        this.colliderHolder =obj;
+    }
+    public CircleCollider(int x,int y,int r){
+        colliderHolder=null;
+        xp=x;
+        yp=y;
+        this.r=r;
     }
 
     public boolean isCollided(Collider other) {
-        xp=obj.getX();
-        yp=obj.getY();
+        if(colliderHolder!=null) {
+            xp = colliderHolder.getX();
+            yp = colliderHolder.getY();
+        }
         if(other instanceof CircleCollider) {
             double d2=Math.pow((xp - other.getX()), 2) + Math.pow((yp - other.getY()), 2);
             return d2<=Math.pow((r+((CircleCollider) other).getR()),2);
@@ -25,11 +32,11 @@ public class CircleCollider extends Collider {
         }
             return false;
     }
+
     private int r;
 
     public int getR() {
         return r;
     }
 
-    private hasCollider obj;
 }

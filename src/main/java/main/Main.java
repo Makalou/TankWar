@@ -19,7 +19,7 @@ public class Main {
         GameFrame frame = GameFrame.getInstance("Tank War",800,600)
                 .setRoles(new Roles(HeroTank.Instance,new SpriteTank(300,300,1)))
                 .setMaps(new Map("map",hotSpots))
-                .setEnemyAction(true,true);
+                .setEnemyAction(false,true);
         frame.start();
     }
 }

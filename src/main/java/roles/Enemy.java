@@ -3,6 +3,7 @@ package roles;
 import components.weapons.Bullet;
 import maps.HotSpot;
 import utils.Direction;
+import utils.State;
 
 import java.awt.*;
 
@@ -14,4 +15,5 @@ public interface Enemy {
     int getY();
     Direction getDirection();
     Bullet fire(int v);
+    State getState();
 }

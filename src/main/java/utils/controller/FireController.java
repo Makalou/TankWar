@@ -13,10 +13,15 @@ import java.util.ArrayList;
 public class FireController extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_J){
-            bullets.add(fir.fire(6));
-            System.out.println("bullets:"+bullets.size());
-        }
+        if(lock==false&&e.getKeyCode()==KeyEvent.VK_J){
+            bullets.add(fir.fire(10));
+            lock=true;
+            }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        lock=false;
     }
 
     public ArrayList<Bullet> getBullets() {
@@ -28,4 +33,5 @@ public class FireController extends KeyAdapter {
     }
     Firable fir;
     private ArrayList<Bullet> bullets=new ArrayList<>();
+    private boolean lock=false;
 }

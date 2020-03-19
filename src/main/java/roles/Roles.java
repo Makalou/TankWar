@@ -1,5 +1,6 @@
 package roles;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -15,10 +16,10 @@ public final class Roles {
     public Hero getHero() {
         return hero;
     }
-    public Queue<Enemy> getEnemys() {
+    public ArrayList<Enemy> getEnemys() {
         return enemys;
     }
     private Hero hero;
-    private volatile Queue<Enemy> enemys=new LinkedList<>();
+    private volatile ArrayList<Enemy> enemys=new ArrayList<>();
 
 }

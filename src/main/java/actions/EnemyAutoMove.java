@@ -2,15 +2,17 @@ package actions;
 
 import roles.Enemy;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 public class EnemyAutoMove implements Runnable {
-    public EnemyAutoMove(Queue<Enemy> enemys){
+    public EnemyAutoMove(ArrayList<Enemy> enemys){
             this.enemys=Optional.of(enemys);
     }
-    private Optional<Queue<Enemy>> enemys;
+    private Optional<ArrayList<Enemy>> enemys;
 
     @Override
     public void run() {
@@ -21,7 +23,7 @@ public class EnemyAutoMove implements Runnable {
         }
         while(true){
             try {
-                Thread.sleep(50);
+                TimeUnit.MILLISECONDS.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
